@@ -2,6 +2,7 @@ package com.xyphias.photobook
 
 import org.http4k.core.*
 import org.http4k.core.Method.*
+import org.http4k.core.body.form
 import org.http4k.lens.location
 import org.http4k.routing.bind
 import org.http4k.routing.routes
@@ -15,10 +16,18 @@ class PhotoBookApp : HttpHandler {
             Response(Status.OK).body(templateRenderer(HomePage)) 
         },
         
-        "/" bind POST to { _ ->
+        "/" bind POST to { request ->
+            photoUrl = request.form("url")
+            
             Response(Status.SEE_OTHER).location(Uri.of("/photo/some-id"))
+        },
+        
+        "/photo/{id}" bind GET to { _ ->
+            Response(Status.OK).body(templateRenderer(Photo(photoUrl!!)))
         }
     )
+    
+    private var photoUrl: String? = null
     
     private val templateRenderer = HandlebarsTemplates().CachingClasspath()
 }

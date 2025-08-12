@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import org.openqa.selenium.By
 import strikt.api.expectThat
 import strikt.assertions.contains
+import strikt.assertions.isEqualTo
 
 class PhotoBookTests {
     private val app = PhotoBookApp()
@@ -17,6 +18,7 @@ class PhotoBookTests {
         addPhoto(photoUrl)
         
         landOnPhotoPage()
+        canSeePhotoAt(photoUrl)
     }
 
     private val webDriver = Http4kWebDriver(app)
@@ -35,5 +37,11 @@ class PhotoBookTests {
 
     private fun landOnPhotoPage() {
         expectThat(webDriver.currentUrl!!).contains(Regex("/photo/.*"))
+    }
+
+    private fun canSeePhotoAt(photoUrl: String) {
+        val imgElement = webDriver.findElement(By.tagName("img"))
+        
+        expectThat(imgElement.getAttribute("src")).isEqualTo(photoUrl)
     }
 }
