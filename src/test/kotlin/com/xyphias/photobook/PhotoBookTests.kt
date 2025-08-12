@@ -18,7 +18,7 @@ class PhotoBookTests {
         addPhoto(photoUrl)
         
         landOnPhotoPage()
-        canSeePhotoAt(photoUrl)
+        canSeePhotoFrom(photoUrl)
     }
 
     private val webDriver = Http4kWebDriver(app)
@@ -39,7 +39,7 @@ class PhotoBookTests {
         expectThat(webDriver.currentUrl!!).contains(Regex("/photo/.*"))
     }
 
-    private fun canSeePhotoAt(photoUrl: String) {
+    private fun canSeePhotoFrom(photoUrl: String) {
         val imgElement = webDriver.findElement(By.tagName("img"))
         
         expectThat(imgElement.getAttribute("src")).isEqualTo(photoUrl)
