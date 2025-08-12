@@ -9,6 +9,7 @@ import strikt.assertions.isEqualTo
 
 class PhotoBookTests {
     private val app = PhotoBookApp()
+    private val browser = Http4kWebDriver(app)
 
     @Test
     fun `a photo can be added and viewed`() {
@@ -20,27 +21,25 @@ class PhotoBookTests {
         landOnPhotoPage()
         canSeePhotoFrom(photoUrl)
     }
-
-    private val webDriver = Http4kWebDriver(app)
     
     private fun navigateToHomePage() {
-        webDriver.navigate().to("/")
+        browser.navigate().to("/")
     }
 
     private fun addPhoto(url: String) {
-        val urlInput = webDriver.findElement(By.id("url"))
+        val urlInput = browser.findElement(By.id("url"))
         urlInput.sendKeys(url)
         
-        val submitButton = webDriver.findElement(By.name("submit"))
+        val submitButton = browser.findElement(By.name("submit"))
         submitButton.submit()
     }
 
     private fun landOnPhotoPage() {
-        expectThat(webDriver.currentUrl!!).contains(Regex("/photo/.*"))
+        expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
     }
 
     private fun canSeePhotoFrom(photoUrl: String) {
-        val imgElement = webDriver.findElement(By.tagName("img"))
+        val imgElement = browser.findElement(By.tagName("img"))
         
         expectThat(imgElement.getAttribute("src")).isEqualTo(photoUrl)
     }
