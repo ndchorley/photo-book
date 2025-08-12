@@ -13,7 +13,7 @@ class PhotoBookApp : HttpHandler {
 
     private val routes = routes(
         "/" bind GET to { _ -> 
-            Response(Status.OK).body(templateRenderer(HomePage)) 
+            Response(Status.OK).body(renderTemplate(HomePage)) 
         },
         
         "/" bind POST to { request ->
@@ -23,11 +23,11 @@ class PhotoBookApp : HttpHandler {
         },
         
         "/photo/{id}" bind GET to { _ ->
-            Response(Status.OK).body(templateRenderer(Photo(photoUrl!!)))
+            Response(Status.OK).body(renderTemplate(Photo(photoUrl!!)))
         }
     )
     
     private var photoUrl: String? = null
     
-    private val templateRenderer = HandlebarsTemplates().CachingClasspath()
+    private val renderTemplate = HandlebarsTemplates().CachingClasspath()
 }
