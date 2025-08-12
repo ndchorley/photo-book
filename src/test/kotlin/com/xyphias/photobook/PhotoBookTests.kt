@@ -13,13 +13,13 @@ class PhotoBookTests {
 
     @Test
     fun `a photo can be added and viewed`() {
-        val photoUrl = "http://photos.com/an-image.jpg"
+        val url = "http://photos.com/an-image.jpg"
         
         navigateToHomePage()
-        addPhoto(photoUrl)
+        addPhoto(url)
         
         landOnPhotoPage()
-        canSeePhotoFrom(photoUrl)
+        canSeePhotoFrom(url)
     }
     
     private fun navigateToHomePage() {
