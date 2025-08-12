@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.2.0"
+    id("application")
     id("com.adarshr.test-logger").version("4.0.0")
 }
 
@@ -30,4 +31,8 @@ tasks.test {
 
 kotlin {
     jvmToolchain(24)
+}
+
+application {
+    mainClass = "com.xyphias.photobook.MainKt"
 }
