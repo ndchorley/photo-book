@@ -2,4 +2,4 @@ package com.xyphias.photobook
 
 import org.http4k.template.ViewModel
 
-data class Photo(val url: String) : ViewModel
+data class Photo(val url: String, val title: String) : ViewModel
