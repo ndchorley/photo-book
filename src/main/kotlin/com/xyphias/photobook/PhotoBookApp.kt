@@ -1,5 +1,7 @@
 package com.xyphias.photobook
 
+import com.xyphias.photobook.views.HomePage
+import com.xyphias.photobook.views.Photo
 import org.http4k.core.*
 import org.http4k.core.Method.*
 import org.http4k.core.body.form
