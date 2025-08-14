@@ -3,7 +3,8 @@ package com.xyphias.photobook
 import com.xyphias.photobook.views.HomePage
 import com.xyphias.photobook.views.Photo
 import org.http4k.core.*
-import org.http4k.core.Method.*
+import org.http4k.core.Method.GET
+import org.http4k.core.Method.POST
 import org.http4k.core.body.form
 import org.http4k.lens.location
 import org.http4k.routing.bind
@@ -18,24 +19,29 @@ class PhotoBookApp : HttpHandler {
             Response(Status.OK).body(renderTemplate(HomePage)) 
         },
         
-        "/" bind POST to { request ->
-            photo = 
-                NewPhoto(
-                    url = request.form("url")!!,
-                    title = request.form("title")!!
-                )
-            
-            Response(Status.SEE_OTHER).location(Uri.of("/photo/some-id"))
+        "/" bind POST to { 
+            request ->
+                val photo =
+                    NewPhoto(
+                        url = request.form("url")!!,
+                        title = request.form("title")!!
+                    )
+    
+                repository.add(photo)
+    
+                Response(Status.SEE_OTHER).location(Uri.of("/photo/some-id"))
         },
         
         "/photo/{id}" bind GET to { _ ->
+            val photo = repository.find()
+            
             Response(Status.OK).body(renderTemplate(photo!!.toViewModel()))
         }
     )
     
-    private var photo: NewPhoto? = null
-    
+    private val repository = Repository()
     private val renderTemplate = HandlebarsTemplates().CachingClasspath()
 }
 
 private fun NewPhoto.toViewModel(): Photo = Photo(url, title)
+
