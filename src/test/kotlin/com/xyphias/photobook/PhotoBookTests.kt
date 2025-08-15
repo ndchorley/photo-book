@@ -16,14 +16,17 @@ class PhotoBookTests {
 
     @Test
     fun `a photo can be added and viewed`() {
-        val url = "http://photos.com/an-image.jpg"
-        val title = "Sunset from Rouen"
+        val photo =
+            NewPhoto(
+                url = "http://photos.com/an-image.jpg",
+                title = "Sunset from Rouen"
+            )
         
         navigateToHomePage()
-        addPhoto(url, title)
+        addPhoto(photo)
         
         landOnPhotoPage()
-        canSeePhotoWithDetails(url, title)
+        canSeePhotoWithDetails(photo)
     }
     
     @Test
@@ -37,12 +40,12 @@ class PhotoBookTests {
         browser.navigate().to("/")
     }
 
-    private fun addPhoto(url: String, title: String) {
+    private fun addPhoto(photo: NewPhoto) {
         val urlInput = browser.findElement(By.id("url"))
-        urlInput.sendKeys(url)
+        urlInput.sendKeys(photo.url)
         
         val titleInput = browser.findElement(By.id("title"))
-        titleInput.sendKeys(title)
+        titleInput.sendKeys(photo.title)
         
         val submitButton = browser.findElement(By.name("submit"))
         submitButton.submit()
@@ -52,13 +55,13 @@ class PhotoBookTests {
         expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
     }
 
-    private fun canSeePhotoWithDetails(url: String, title: String) {
+    private fun canSeePhotoWithDetails(photo: NewPhoto) {
         val imgElement = browser.findElement(By.tagName("img"))
         val h2Element = browser.findElement(By.tagName("h2"))
         
         expect {
-            that(imgElement.getAttribute("src")).isEqualTo(url)
-            that(h2Element.text).isEqualTo(title)
+            that(imgElement.getAttribute("src")).isEqualTo(photo.url)
+            that(h2Element.text).isEqualTo(photo.title)
         }
     }
 
