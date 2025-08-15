@@ -10,8 +10,11 @@ import org.http4k.lens.location
 import org.http4k.routing.bind
 import org.http4k.routing.routes
 import org.http4k.template.HandlebarsTemplates
+import org.http4k.template.TemplateRenderer
 
-class PhotoBookApp : HttpHandler {
+class PhotoBookApp(
+    private val renderTemplate: TemplateRenderer = HandlebarsTemplates().CachingClasspath()
+) : HttpHandler {
     override fun invoke(request: Request): Response = routes(request)
 
     private val routes = routes(
@@ -40,7 +43,6 @@ class PhotoBookApp : HttpHandler {
     )
     
     private val repository = Repository()
-    private val renderTemplate = HandlebarsTemplates().CachingClasspath()
 }
 
 private fun NewPhoto.toViewModel(): Photo = Photo(url, title)
