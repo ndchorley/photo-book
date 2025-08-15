@@ -52,12 +52,12 @@ class PhotoBookTests {
         expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
     }
 
-    private fun canSeePhotoWithDetails(photoUrl: String, title: String) {
+    private fun canSeePhotoWithDetails(url: String, title: String) {
         val imgElement = browser.findElement(By.tagName("img"))
         val h2Element = browser.findElement(By.tagName("h2"))
         
         expect {
-            that(imgElement.getAttribute("src")).isEqualTo(photoUrl)
+            that(imgElement.getAttribute("src")).isEqualTo(url)
             that(h2Element.text).isEqualTo(title)
         }
     }
