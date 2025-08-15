@@ -25,8 +25,7 @@ class PhotoBookTests {
         browser
             .navigateToHomePage()
             .addPhoto(photo)
-
-        PhotoPage(browser).canSeePhoto(photo)
+            .canSeePhoto(photo)
     }
     
     @Test

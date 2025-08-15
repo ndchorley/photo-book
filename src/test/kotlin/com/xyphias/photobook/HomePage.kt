@@ -4,7 +4,7 @@ import org.http4k.webdriver.Http4kWebDriver
 import org.openqa.selenium.By
 
 class HomePage(private val browser: Http4kWebDriver) {
-    fun addPhoto(photo: NewPhoto) {
+    fun addPhoto(photo: NewPhoto): PhotoPage {
         val urlInput = browser.findElement(By.id("url"))
         urlInput.sendKeys(photo.url)
 
@@ -16,5 +16,7 @@ class HomePage(private val browser: Http4kWebDriver) {
 
         val submitButton = browser.findElement(By.name("submit"))
         submitButton.submit()
+
+        return PhotoPage(browser)
     }
 }
