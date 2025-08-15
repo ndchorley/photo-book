@@ -9,7 +9,7 @@ import strikt.assertions.contains
 import strikt.assertions.isEqualTo
 
 class PhotoBookTests {
-    private val app = PhotoBookApp()
+    private val app = createApp()
     private val browser = Http4kWebDriver(app)
 
     @Test
