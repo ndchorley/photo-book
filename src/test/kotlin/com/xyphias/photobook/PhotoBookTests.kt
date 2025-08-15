@@ -44,7 +44,7 @@ class PhotoBookTests {
     private fun Http4kWebDriver.navigateToPhotoPageFor(id: String): Http4kWebDriver {
         navigate().to("/photo/$id")
 
-        return browser
+        return this
     }
 
     private fun Http4kWebDriver.seesPhotoNotFoundPage() {
