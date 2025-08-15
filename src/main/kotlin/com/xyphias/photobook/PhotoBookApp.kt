@@ -5,6 +5,8 @@ import com.xyphias.photobook.views.Photo
 import org.http4k.core.*
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
+import org.http4k.core.Status.Companion.NOT_FOUND
+import org.http4k.core.Status.Companion.OK
 import org.http4k.core.body.form
 import org.http4k.lens.location
 import org.http4k.routing.bind
@@ -18,7 +20,7 @@ class PhotoBookApp(
 
     private val routes = routes(
         "/" bind GET to { _ -> 
-            Response(Status.OK).body(renderTemplate(HomePage)) 
+            Response(OK).body(renderTemplate(HomePage)) 
         },
         
         "/" bind POST to { 
@@ -35,9 +37,10 @@ class PhotoBookApp(
         },
         
         "/photo/{id}" bind GET to { _ ->
-            val photo = repository.find()
-            
-            Response(Status.OK).body(renderTemplate(photo!!.toViewModel()))
+            when (val photo = repository.find()) {
+                null -> Response(NOT_FOUND)
+                else -> Response(OK).body(renderTemplate(photo.toViewModel()))
+            }
         }
     )
     

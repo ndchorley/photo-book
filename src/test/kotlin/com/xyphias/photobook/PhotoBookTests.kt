@@ -1,6 +1,7 @@
 package com.xyphias.photobook
 
 import com.xyphias.photobook.Environment.DEVELOPMENT
+import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.webdriver.Http4kWebDriver
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.By
@@ -25,6 +26,13 @@ class PhotoBookTests {
         canSeePhotoWithDetails(url, title)
     }
     
+    @Test
+    fun `a photo that doesn't exist can't be viewed`() {
+        navigateToPhotoPageFor(id = "does-not-exist")
+        
+        seesPhotoNotFoundPage()
+    }
+
     private fun navigateToHomePage() {
         browser.navigate().to("/")
     }
@@ -52,5 +60,13 @@ class PhotoBookTests {
             that(imgElement.getAttribute("src")).isEqualTo(photoUrl)
             that(h2Element.text).isEqualTo(title)
         }
+    }
+
+    private fun navigateToPhotoPageFor(id: String) {
+        browser.navigate().to("/photo/$id")
+    }
+
+    private fun seesPhotoNotFoundPage() {
+        expectThat(browser.status!!).isEqualTo(NOT_FOUND)
     }
 }
