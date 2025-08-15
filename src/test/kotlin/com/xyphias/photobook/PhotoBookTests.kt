@@ -30,9 +30,9 @@ class PhotoBookTests {
     
     @Test
     fun `a photo that doesn't exist can't be viewed`() {
-        navigateToPhotoPageFor(id = "does-not-exist")
-        
-        seesPhotoNotFoundPage()
+        browser
+            .navigateToPhotoPageFor(id = "does-not-exist")
+            .seesPhotoNotFoundPage()
     }
 
     private fun Http4kWebDriver.navigateToHomePage(): HomePage {
@@ -41,11 +41,13 @@ class PhotoBookTests {
         return HomePage(this)
     }
 
-    private fun navigateToPhotoPageFor(id: String) {
-        browser.navigate().to("/photo/$id")
+    private fun Http4kWebDriver.navigateToPhotoPageFor(id: String): Http4kWebDriver {
+        navigate().to("/photo/$id")
+
+        return browser
     }
 
-    private fun seesPhotoNotFoundPage() {
-        expectThat(browser.status!!).isEqualTo(NOT_FOUND)
+    private fun Http4kWebDriver.seesPhotoNotFoundPage() {
+        expectThat(status!!).isEqualTo(NOT_FOUND)
     }
 }
