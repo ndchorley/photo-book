@@ -29,7 +29,7 @@ class PhotoBookTests {
         addPhoto(photo)
         
         landOnPhotoPage()
-        canSeePhotoWithDetails(photo)
+        canSeePhoto(photo)
     }
     
     @Test
@@ -61,7 +61,7 @@ class PhotoBookTests {
         expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
     }
 
-    private fun canSeePhotoWithDetails(photo: NewPhoto) {
+    private fun canSeePhoto(photo: NewPhoto) {
         val imgElement = browser.findElement(By.tagName("img"))
         val h2Element = browser.findElement(By.tagName("h2"))
         val notesElement = browser.findElement(By.id("notes"))
