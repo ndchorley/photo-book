@@ -12,7 +12,6 @@ import strikt.assertions.isEqualTo
 class PhotoBookTests {
     private val app = createAppFor(DEVELOPMENT)
     private val browser = Http4kWebDriver(app)
-    private val photoPage = PhotoPage(browser)
     
     @Test
     fun `a photo can be added and viewed`() {
@@ -28,8 +27,7 @@ class PhotoBookTests {
         navigateToHomePage()
         addPhoto(photo)
         
-        landOnPhotoPage()
-        photoPage.canSeePhoto(photo)
+        landOnPhotoPage().canSeePhoto(photo)
     }
     
     @Test
@@ -57,8 +55,10 @@ class PhotoBookTests {
         submitButton.submit()
     }
 
-    private fun landOnPhotoPage() {
+    private fun landOnPhotoPage(): PhotoPage {
         expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
+        
+        return PhotoPage(browser)
     }
 
     private fun navigateToPhotoPageFor(id: String) {
@@ -68,5 +68,4 @@ class PhotoBookTests {
     private fun seesPhotoNotFoundPage() {
         expectThat(browser.status!!).isEqualTo(NOT_FOUND)
     }
-
 }
