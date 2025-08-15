@@ -13,6 +13,8 @@ import org.http4k.lens.location
 import org.http4k.routing.bind
 import org.http4k.routing.routes
 import org.http4k.template.TemplateRenderer
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PhotoBookApp(
     private val renderTemplate: TemplateRenderer
@@ -30,7 +32,10 @@ class PhotoBookApp(
                     NewPhoto(
                         url = request.form("url")!!,
                         title = request.form("title")!!,
-                        notes = request.form("notes")!!
+                        notes = request.form("notes")!!,
+                        takenOn =
+                            LocalDateTime
+                                .parse(request.form("taken-on")!!)
                     )
     
                 repository.add(photo)
@@ -49,5 +54,12 @@ class PhotoBookApp(
     private val repository = Repository()
 }
 
-private fun NewPhoto.toViewModel(): Photo = Photo(url, title, notes)
+private fun NewPhoto.toViewModel(): Photo {
+    val dateTime =
+        DateTimeFormatter
+            .ofPattern("d MMMM YYYY 'at' HH:mm")
+            .format(takenOn)
+
+    return Photo(url, title, notes, dateTime)
+}
 

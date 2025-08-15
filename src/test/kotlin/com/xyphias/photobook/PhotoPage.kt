@@ -29,13 +29,20 @@ class PhotoPage(private val browser: Http4kWebDriver) {
         return this
     }
 
-    fun andNotes(notes: String) {
+    fun andNotes(notes: String): PhotoPage {
         val notesElement = browser.findElement(By.id("notes"))
 
         expectThat(notesElement.text).isEqualTo(notes.withoutNewLines())
+
+        return this
+    }
+
+    fun takenOn(dateAndTime: String) {
+        val takenOnElement = browser.findElement(By.id("taken-on"))
+
+        expectThat(takenOnElement.text).isEqualTo(dateAndTime)
     }
 
     private fun String.withoutNewLines(): String =
         replace(System.lineSeparator(), "")
-
 }

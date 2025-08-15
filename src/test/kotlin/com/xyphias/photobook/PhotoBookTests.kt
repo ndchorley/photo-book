@@ -6,6 +6,8 @@ import org.http4k.webdriver.Http4kWebDriver
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
+import java.time.LocalDateTime
+import java.time.Month.JULY
 
 class PhotoBookTests {
     private val app = createAppFor(DEVELOPMENT)
@@ -19,7 +21,10 @@ class PhotoBookTests {
                 title = "Sunset from Rouen",
                 notes = """|The trees were in the way and it was quite a dark shot.
                            | Couldn't get a good angle.
-                           |""".trimMargin()
+                           |""".trimMargin(),
+                takenOn =
+                    LocalDateTime
+                        .of(2025, JULY, 15, 12, 35)
             )
 
         browser
@@ -29,6 +34,7 @@ class PhotoBookTests {
             .canSeePhotoAt(photo.url)
             .withTitle(photo.title)
             .andNotes(photo.notes)
+            .takenOn("15 July 2025 at 12:35")
     }
     
     @Test

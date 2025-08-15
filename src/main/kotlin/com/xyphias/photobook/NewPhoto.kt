@@ -1,3 +1,10 @@
 package com.xyphias.photobook
 
-data class NewPhoto(val url: String, val title: String, val notes: String)
+import java.time.LocalDateTime
+
+data class NewPhoto(
+    val url: String,
+    val title: String,
+    val notes: String,
+    val takenOn: LocalDateTime
+)

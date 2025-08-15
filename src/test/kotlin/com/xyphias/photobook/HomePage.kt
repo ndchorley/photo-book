@@ -14,6 +14,9 @@ class HomePage(private val browser: Http4kWebDriver) {
         val notesInput = browser.findElement(By.id("notes"))
         notesInput.sendKeys(photo.notes)
 
+        val takenOnInput = browser.findElement(By.id("taken-on"))
+        takenOnInput.sendKeys(photo.takenOn.toString())
+
         val submitButton = browser.findElement(By.name("submit"))
         submitButton.submit()
 
