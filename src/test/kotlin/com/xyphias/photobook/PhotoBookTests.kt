@@ -5,7 +5,6 @@ import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.webdriver.Http4kWebDriver
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
-import strikt.assertions.contains
 import strikt.assertions.isEqualTo
 
 class PhotoBookTests {
@@ -26,8 +25,8 @@ class PhotoBookTests {
         browser
             .navigateToHomePage()
             .addPhoto(photo)
-        
-        landOnPhotoPage().canSeePhoto(photo)
+
+        PhotoPage(browser).canSeePhoto(photo)
     }
     
     @Test
@@ -41,12 +40,6 @@ class PhotoBookTests {
         navigate().to("/")
 
         return HomePage(this)
-    }
-
-    private fun landOnPhotoPage(): PhotoPage {
-        expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
-        
-        return PhotoPage(browser)
     }
 
     private fun navigateToPhotoPageFor(id: String) {

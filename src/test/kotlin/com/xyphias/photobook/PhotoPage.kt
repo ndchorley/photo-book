@@ -3,10 +3,14 @@ package com.xyphias.photobook
 import org.http4k.webdriver.Http4kWebDriver
 import org.openqa.selenium.By
 import strikt.api.expect
+import strikt.api.expectThat
+import strikt.assertions.contains
 import strikt.assertions.isEqualTo
 
 class PhotoPage(private val browser: Http4kWebDriver) {
     fun canSeePhoto(photo: NewPhoto) {
+        expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
+
         val imgElement = browser.findElement(By.tagName("img"))
         val h2Element = browser.findElement(By.tagName("h2"))
         val notesElement = browser.findElement(By.id("notes"))
