@@ -34,20 +34,20 @@ class PhotoBookTests {
             .navigateToPhotoPageFor(id = "does-not-exist")
             .seesPhotoNotFoundPage()
     }
+}
 
-    private fun Http4kWebDriver.navigateToHomePage(): HomePage {
-        navigate().to("/")
+private fun Http4kWebDriver.navigateToHomePage(): HomePage {
+    navigate().to("/")
 
-        return HomePage(this)
-    }
+    return HomePage(this)
+}
 
-    private fun Http4kWebDriver.navigateToPhotoPageFor(id: String): Http4kWebDriver {
-        navigate().to("/photo/$id")
+private fun Http4kWebDriver.navigateToPhotoPageFor(id: String): Http4kWebDriver {
+    navigate().to("/photo/$id")
 
-        return this
-    }
+    return this
+}
 
-    private fun Http4kWebDriver.seesPhotoNotFoundPage() {
-        expectThat(status!!).isEqualTo(NOT_FOUND)
-    }
+private fun Http4kWebDriver.seesPhotoNotFoundPage() {
+    expectThat(status!!).isEqualTo(NOT_FOUND)
 }
