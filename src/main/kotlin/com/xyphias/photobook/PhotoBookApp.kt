@@ -1,6 +1,7 @@
 package com.xyphias.photobook
 
 import com.xyphias.photobook.views.HomePage
+import com.xyphias.photobook.views.NotFound
 import com.xyphias.photobook.views.Photo
 import org.http4k.core.*
 import org.http4k.core.Method.GET
@@ -38,7 +39,7 @@ class PhotoBookApp(
         
         "/photo/{id}" bind GET to { _ ->
             when (val photo = repository.find()) {
-                null -> Response(NOT_FOUND)
+                null -> Response(NOT_FOUND).body(renderTemplate(NotFound))
                 else -> Response(OK).body(renderTemplate(photo.toViewModel()))
             }
         }
