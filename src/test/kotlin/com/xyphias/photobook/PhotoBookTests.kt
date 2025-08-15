@@ -5,7 +5,6 @@ import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.webdriver.Http4kWebDriver
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.By
-import strikt.api.expect
 import strikt.api.expectThat
 import strikt.assertions.contains
 import strikt.assertions.isEqualTo
@@ -13,7 +12,8 @@ import strikt.assertions.isEqualTo
 class PhotoBookTests {
     private val app = createAppFor(DEVELOPMENT)
     private val browser = Http4kWebDriver(app)
-
+    private val photoPage = PhotoPage(browser)
+    
     @Test
     fun `a photo can be added and viewed`() {
         val photo =
@@ -29,7 +29,7 @@ class PhotoBookTests {
         addPhoto(photo)
         
         landOnPhotoPage()
-        canSeePhoto(photo)
+        photoPage.canSeePhoto(photo)
     }
     
     @Test
@@ -61,18 +61,6 @@ class PhotoBookTests {
         expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
     }
 
-    private fun canSeePhoto(photo: NewPhoto) {
-        val imgElement = browser.findElement(By.tagName("img"))
-        val h2Element = browser.findElement(By.tagName("h2"))
-        val notesElement = browser.findElement(By.id("notes"))
-        
-        expect {
-            that(imgElement.getAttribute("src")).isEqualTo(photo.url)
-            that(h2Element.text).isEqualTo(photo.title)
-            that(notesElement.text).isEqualTo(photo.notes.withoutNewLines())
-        }
-    }
-
     private fun navigateToPhotoPageFor(id: String) {
         browser.navigate().to("/photo/$id")
     }
@@ -80,7 +68,5 @@ class PhotoBookTests {
     private fun seesPhotoNotFoundPage() {
         expectThat(browser.status!!).isEqualTo(NOT_FOUND)
     }
-}
 
-private fun String.withoutNewLines(): String =
-    replace(System.lineSeparator(), "")
+}
