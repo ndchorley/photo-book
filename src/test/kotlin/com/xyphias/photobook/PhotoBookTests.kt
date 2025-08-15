@@ -26,6 +26,7 @@ class PhotoBookTests {
             .navigateToHomePage()
             .addPhoto(photo)
             .canSeePhoto(photo)
+            .withTitle(photo.title)
     }
     
     @Test
