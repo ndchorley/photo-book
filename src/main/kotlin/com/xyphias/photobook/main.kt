@@ -1,8 +1,9 @@
 package com.xyphias.photobook
 
+import com.xyphias.photobook.Environment.PRODUCTION
 import org.http4k.server.Jetty
 import org.http4k.server.asServer
 
 fun main() {
-    createApp().asServer(Jetty(port = 8080)).start()
+    createAppFor(PRODUCTION).asServer(Jetty(port = 8080)).start()
 }

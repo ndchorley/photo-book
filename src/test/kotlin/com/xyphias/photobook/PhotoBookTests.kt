@@ -1,5 +1,6 @@
 package com.xyphias.photobook
 
+import com.xyphias.photobook.Environment.DEVELOPMENT
 import org.http4k.webdriver.Http4kWebDriver
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.By
@@ -9,7 +10,7 @@ import strikt.assertions.contains
 import strikt.assertions.isEqualTo
 
 class PhotoBookTests {
-    private val app = createApp()
+    private val app = createAppFor(DEVELOPMENT)
     private val browser = Http4kWebDriver(app)
 
     @Test

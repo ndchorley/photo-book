@@ -9,11 +9,10 @@ import org.http4k.core.body.form
 import org.http4k.lens.location
 import org.http4k.routing.bind
 import org.http4k.routing.routes
-import org.http4k.template.HandlebarsTemplates
 import org.http4k.template.TemplateRenderer
 
 class PhotoBookApp(
-    private val renderTemplate: TemplateRenderer = HandlebarsTemplates().CachingClasspath()
+    private val renderTemplate: TemplateRenderer
 ) : HttpHandler {
     override fun invoke(request: Request): Response = routes(request)
 
