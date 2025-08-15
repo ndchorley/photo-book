@@ -4,7 +4,6 @@ import com.xyphias.photobook.Environment.DEVELOPMENT
 import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.webdriver.Http4kWebDriver
 import org.junit.jupiter.api.Test
-import org.openqa.selenium.By
 import strikt.api.expectThat
 import strikt.assertions.contains
 import strikt.assertions.isEqualTo
@@ -23,9 +22,10 @@ class PhotoBookTests {
                            | Couldn't get a good angle.
                            |""".trimMargin()
             )
-        
-        navigateToHomePage()
-        addPhoto(photo)
+
+        browser
+            .navigateToHomePage()
+            .addPhoto(photo)
         
         landOnPhotoPage().canSeePhoto(photo)
     }
@@ -37,22 +37,10 @@ class PhotoBookTests {
         seesPhotoNotFoundPage()
     }
 
-    private fun navigateToHomePage() {
-        browser.navigate().to("/")
-    }
+    private fun Http4kWebDriver.navigateToHomePage(): HomePage {
+        navigate().to("/")
 
-    private fun addPhoto(photo: NewPhoto) {
-        val urlInput = browser.findElement(By.id("url"))
-        urlInput.sendKeys(photo.url)
-        
-        val titleInput = browser.findElement(By.id("title"))
-        titleInput.sendKeys(photo.title)
-        
-        val notesInput = browser.findElement(By.id("notes"))
-        notesInput.sendKeys(photo.notes)
-        
-        val submitButton = browser.findElement(By.name("submit"))
-        submitButton.submit()
+        return HomePage(this)
     }
 
     private fun landOnPhotoPage(): PhotoPage {
