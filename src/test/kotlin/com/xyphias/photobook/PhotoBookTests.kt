@@ -27,6 +27,7 @@ class PhotoBookTests {
             .addPhoto(photo)
             .canSeePhoto(photo)
             .withTitle(photo.title)
+            .andNotes(photo.notes)
     }
     
     @Test

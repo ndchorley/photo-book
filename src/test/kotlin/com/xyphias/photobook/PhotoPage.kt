@@ -12,20 +12,26 @@ class PhotoPage(private val browser: Http4kWebDriver) {
         expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
 
         val imgElement = browser.findElement(By.tagName("img"))
-        val notesElement = browser.findElement(By.id("notes"))
 
         expect {
             that(imgElement.getAttribute("src")).isEqualTo(photo.url)
-            that(notesElement.text).isEqualTo(photo.notes.withoutNewLines())
         }
 
         return this
     }
 
-    fun withTitle(title: String) {
+    fun withTitle(title: String): PhotoPage {
         val h2Element = browser.findElement(By.tagName("h2"))
 
         expectThat(h2Element.text).isEqualTo(title)
+
+        return this
+    }
+
+    fun andNotes(notes: String) {
+        val notesElement = browser.findElement(By.id("notes"))
+
+        expectThat(notesElement.text).isEqualTo(notes.withoutNewLines())
     }
 
     private fun String.withoutNewLines(): String =
