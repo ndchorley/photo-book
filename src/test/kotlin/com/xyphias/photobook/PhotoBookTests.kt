@@ -19,7 +19,10 @@ class PhotoBookTests {
         val photo =
             NewPhoto(
                 url = "http://photos.com/an-image.jpg",
-                title = "Sunset from Rouen"
+                title = "Sunset from Rouen",
+                notes = """|The trees were in the way and it was quite a dark shot.
+                           | Couldn't get a good angle.
+                           |""".trimMargin()
             )
         
         navigateToHomePage()
@@ -47,6 +50,9 @@ class PhotoBookTests {
         val titleInput = browser.findElement(By.id("title"))
         titleInput.sendKeys(photo.title)
         
+        val notesInput = browser.findElement(By.id("notes"))
+        notesInput.sendKeys(photo.notes)
+        
         val submitButton = browser.findElement(By.name("submit"))
         submitButton.submit()
     }
@@ -58,10 +64,12 @@ class PhotoBookTests {
     private fun canSeePhotoWithDetails(photo: NewPhoto) {
         val imgElement = browser.findElement(By.tagName("img"))
         val h2Element = browser.findElement(By.tagName("h2"))
+        val notesElement = browser.findElement(By.id("notes"))
         
         expect {
             that(imgElement.getAttribute("src")).isEqualTo(photo.url)
             that(h2Element.text).isEqualTo(photo.title)
+            that(notesElement.text).isEqualTo(photo.notes.withoutNewLines())
         }
     }
 
@@ -73,3 +81,6 @@ class PhotoBookTests {
         expectThat(browser.status!!).isEqualTo(NOT_FOUND)
     }
 }
+
+private fun String.withoutNewLines(): String =
+    replace(System.lineSeparator(), "")

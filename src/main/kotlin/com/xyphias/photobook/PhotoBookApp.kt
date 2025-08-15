@@ -29,7 +29,8 @@ class PhotoBookApp(
                 val photo =
                     NewPhoto(
                         url = request.form("url")!!,
-                        title = request.form("title")!!
+                        title = request.form("title")!!,
+                        notes = request.form("notes")!!
                     )
     
                 repository.add(photo)
@@ -48,5 +49,5 @@ class PhotoBookApp(
     private val repository = Repository()
 }
 
-private fun NewPhoto.toViewModel(): Photo = Photo(url, title)
+private fun NewPhoto.toViewModel(): Photo = Photo(url, title, notes)
 
