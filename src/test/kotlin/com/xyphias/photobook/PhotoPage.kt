@@ -7,9 +7,13 @@ import strikt.assertions.contains
 import strikt.assertions.isEqualTo
 
 class PhotoPage(private val browser: Http4kWebDriver) {
-    fun canSeePhotoAt(url: String): PhotoPage {
+    fun landsOnPhotoPage(): PhotoPage {
         expectThat(browser.currentUrl!!).contains(Regex("/photo/.*"))
 
+        return this
+    }
+
+    fun canSeePhotoAt(url: String): PhotoPage {
         val imgElement = browser.findElement(By.tagName("img"))
 
         expectThat(imgElement.getAttribute("src")).isEqualTo(url)
@@ -33,4 +37,5 @@ class PhotoPage(private val browser: Http4kWebDriver) {
 
     private fun String.withoutNewLines(): String =
         replace(System.lineSeparator(), "")
+
 }

@@ -25,6 +25,7 @@ class PhotoBookTests {
         browser
             .navigateToHomePage()
             .addPhoto(photo)
+            .landsOnPhotoPage()
             .canSeePhotoAt(photo.url)
             .withTitle(photo.title)
             .andNotes(photo.notes)
