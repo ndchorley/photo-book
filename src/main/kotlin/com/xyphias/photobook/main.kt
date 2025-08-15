@@ -1,7 +1,7 @@
 package com.xyphias.photobook
 
 import com.xyphias.photobook.Environment.*
-import org.http4k.server.Jetty
+import org.http4k.server.SunHttp
 import org.http4k.server.asServer
 
 fun main() {
@@ -11,5 +11,5 @@ fun main() {
             else -> PRODUCTION
         }
     
-    createAppFor(environment).asServer(Jetty(port = 8080)).start()
+    createAppFor(environment).asServer(SunHttp(port = 8080)).start()
 }
