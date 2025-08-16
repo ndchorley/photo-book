@@ -48,7 +48,7 @@ class PhotoBookApp(
         }
     )
     
-    private val repository = Repository()
+    private val repository: Repository = MemoryBasedStore()
 }
 
 private fun photoFrom(request: Request): NewPhoto =

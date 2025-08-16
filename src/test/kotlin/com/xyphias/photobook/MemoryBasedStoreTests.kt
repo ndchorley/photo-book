@@ -8,8 +8,8 @@ import strikt.assertions.isNotNull
 import strikt.assertions.isNull
 import java.time.LocalDateTime
 
-class RepositoryTests {
-    private val repository = Repository()
+class MemoryBasedStoreTests {
+    private val repository: Repository = MemoryBasedStore()
 
     @Test
     fun `photos can be added and retrieved by ID`() {
