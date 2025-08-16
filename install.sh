@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+JAR_BASE_NAME=photo-book-1.0-SNAPSHOT-all
+INSTALL_DIRECTORY=~/software
+
+NEW_JAR=$INSTALL_DIRECTORY/$JAR_BASE_NAME-new.jar
+cp build/libs/$JAR_BASE_NAME.jar $NEW_JAR
+
+OLD_JAR=$INSTALL_DIRECTORY/$JAR_BASE_NAME.jar
+
+if [ -e $OLD_JAR ]
+then
+  rm -v $OLD_JAR
+fi
+
+mv -v $NEW_JAR $OLD_JAR
+
+SHELL_SCRIPT_BASE_NAME=open-photo-book
+
+NEW_SHELL_SCRIPT=$INSTALL_DIRECTORY/bin/$SHELL_SCRIPT_BASE_NAME-new
+cp bin/open-photo-book $NEW_SHELL_SCRIPT
+
+OLD_SHELL_SCRIPT=$INSTALL_DIRECTORY/bin/$SHELL_SCRIPT_BASE_NAME
+
+if [ -e $OLD_SHELL_SCRIPT ]
+then
+    rm -v $OLD_SHELL_SCRIPT
+fi
+
+mv -v $NEW_SHELL_SCRIPT $OLD_SHELL_SCRIPT
