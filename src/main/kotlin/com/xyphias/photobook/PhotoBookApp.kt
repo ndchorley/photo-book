@@ -11,6 +11,7 @@ import org.http4k.core.Status.Companion.OK
 import org.http4k.core.body.form
 import org.http4k.lens.location
 import org.http4k.routing.bind
+import org.http4k.routing.path
 import org.http4k.routing.routes
 import org.http4k.template.TemplateRenderer
 import java.time.LocalDateTime
@@ -30,16 +31,20 @@ class PhotoBookApp(
             request ->
                 val newPhoto = photoFrom(request)
     
-                repository.add(newPhoto)
+                val id = repository.add(newPhoto)
     
-                Response(Status.SEE_OTHER).location(Uri.of("/photo/some-id"))
+                Response(Status.SEE_OTHER)
+                    .location(Uri.of("/photo/${id.value}"))
         },
         
-        "/photo/{id}" bind GET to { _ ->
-            when (val photo = repository.find()) {
-                null -> Response(NOT_FOUND).body(renderTemplate(NotFound))
-                else -> Response(OK).body(renderTemplate(photo.toViewModel()))
-            }
+        "/photo/{id}" bind GET to {
+            request ->
+                val id = Id(request.path("id")!!)
+
+                when (val photo = repository.find(id)) {
+                    null -> Response(NOT_FOUND).body(renderTemplate(NotFound))
+                    else -> Response(OK).body(renderTemplate(photo.toViewModel()))
+                }
         }
     )
     
