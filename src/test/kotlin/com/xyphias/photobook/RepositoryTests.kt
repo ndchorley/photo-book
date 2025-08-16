@@ -2,8 +2,10 @@ package com.xyphias.photobook
 
 import org.junit.jupiter.api.Test
 import strikt.api.expect
+import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isNotNull
+import strikt.assertions.isNull
 import java.time.LocalDateTime
 
 class RepositoryTests {
@@ -31,6 +33,13 @@ class RepositoryTests {
             that(retrievedPhoto?.notes).isEqualTo(photo.notes)
             that(retrievedPhoto?.takenOn).isEqualTo(photo.takenOn)
         }
+    }
+
+    @Test
+    fun `null is returned when there is no photo with the given ID`() {
+        val photo = repository.find(Id("does-not-exist"))
+
+        expectThat(photo).isNull()
     }
 
     private val anotherPhoto =
