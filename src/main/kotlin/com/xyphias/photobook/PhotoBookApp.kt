@@ -56,7 +56,7 @@ private fun photoFrom(request: Request): NewPhoto =
                 .parse(request.form("taken-on")!!)
     )
 
-private fun NewPhoto.toViewModel(): PhotoView {
+private fun Photo.toViewModel(): PhotoView {
     val dateTime =
         DateTimeFormatter
             .ofPattern("d MMMM YYYY 'at' HH:mm")

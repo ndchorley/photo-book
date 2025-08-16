@@ -2,12 +2,18 @@ package com.xyphias.photobook
 
 class Repository {
     fun add(photo: NewPhoto) {
-        this.photo = photo
+        this.photo =
+            Photo(
+                photo.url,
+                photo.title,
+                photo.notes,
+                photo.takenOn
+            )
     }
 
-    fun find(): NewPhoto? {
+    fun find(): Photo? {
         return photo
     }
 
-    private var photo: NewPhoto? = null
+    private var photo: Photo? = null
 }
