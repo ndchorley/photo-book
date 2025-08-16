@@ -1,5 +1,7 @@
 package com.xyphias.photobook
 
+import kotlin.random.Random
+
 class Repository {
     fun add(photo: NewPhoto): Id {
         val newPhoto =
@@ -11,9 +13,10 @@ class Repository {
             )
         this.photo = newPhoto
 
-        photos.addLast(newPhoto)
+        val id = Id(Random.nextInt().toString())
+        photos.put(id, newPhoto)
 
-        return Id(photos.lastIndex.toString())
+        return id
     }
 
     fun find(): Photo? {
@@ -21,9 +24,9 @@ class Repository {
     }
 
     fun find(id: Id): Photo? {
-        return photos[id.value.toInt()]
+        return photos[id]
     }
 
-    private val photos = mutableListOf<Photo>()
+    private val photos = mutableMapOf<Id, Photo>()
     private var photo: Photo? = null
 }
