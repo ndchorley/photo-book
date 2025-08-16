@@ -2,7 +2,7 @@ package com.xyphias.photobook
 
 import com.xyphias.photobook.views.HomePage
 import com.xyphias.photobook.views.NotFound
-import com.xyphias.photobook.views.Photo
+import com.xyphias.photobook.views.Photo as PhotoView
 import org.http4k.core.*
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
@@ -56,12 +56,11 @@ private fun photoFrom(request: Request): NewPhoto =
                 .parse(request.form("taken-on")!!)
     )
 
-private fun NewPhoto.toViewModel(): Photo {
+private fun NewPhoto.toViewModel(): PhotoView {
     val dateTime =
         DateTimeFormatter
             .ofPattern("d MMMM YYYY 'at' HH:mm")
             .format(takenOn)
 
-    return Photo(url, title, notes, dateTime)
+    return PhotoView(url, title, notes, dateTime)
 }
-
