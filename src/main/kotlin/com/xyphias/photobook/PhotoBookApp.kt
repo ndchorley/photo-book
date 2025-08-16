@@ -28,17 +28,9 @@ class PhotoBookApp(
         
         "/" bind POST to { 
             request ->
-                val photo =
-                    NewPhoto(
-                        url = request.form("url")!!,
-                        title = request.form("title")!!,
-                        notes = request.form("notes")!!,
-                        takenOn =
-                            LocalDateTime
-                                .parse(request.form("taken-on")!!)
-                    )
+                val newPhoto = photoFrom(request)
     
-                repository.add(photo)
+                repository.add(newPhoto)
     
                 Response(Status.SEE_OTHER).location(Uri.of("/photo/some-id"))
         },
@@ -53,6 +45,16 @@ class PhotoBookApp(
     
     private val repository = Repository()
 }
+
+private fun photoFrom(request: Request): NewPhoto =
+    NewPhoto(
+        url = request.form("url")!!,
+        title = request.form("title")!!,
+        notes = request.form("notes")!!,
+        takenOn =
+            LocalDateTime
+                .parse(request.form("taken-on")!!)
+    )
 
 private fun NewPhoto.toViewModel(): Photo {
     val dateTime =
