@@ -11,7 +11,6 @@ class Repository {
                 photo.notes,
                 photo.takenOn
             )
-        this.photo = newPhoto
 
         val id = Id(Random.nextInt().toString())
         photos.put(id, newPhoto)
@@ -19,14 +18,9 @@ class Repository {
         return id
     }
 
-    fun find(): Photo? {
-        return photo
-    }
-
     fun find(id: Id): Photo? {
         return photos[id]
     }
 
     private val photos = mutableMapOf<Id, Photo>()
-    private var photo: Photo? = null
 }
