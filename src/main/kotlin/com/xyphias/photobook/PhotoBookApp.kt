@@ -1,5 +1,6 @@
 package com.xyphias.photobook
 
+import com.xyphias.photobook.storage.Repository
 import com.xyphias.photobook.views.HomePage
 import com.xyphias.photobook.views.NotFound
 import com.xyphias.photobook.views.Photo as PhotoView

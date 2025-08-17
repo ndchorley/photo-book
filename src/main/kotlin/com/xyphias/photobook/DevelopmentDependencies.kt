@@ -1,5 +1,7 @@
 package com.xyphias.photobook
 
+import com.xyphias.photobook.storage.Repository
+import com.xyphias.photobook.storage.SQLiteBasedStore
 import org.http4k.template.HandlebarsTemplates
 import org.http4k.template.TemplateRenderer
 
