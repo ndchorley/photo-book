@@ -5,11 +5,13 @@ import org.http4k.server.SunHttp
 import org.http4k.server.asServer
 
 fun main() {
-    val environment =
+    val dependencies =
         when (System.getenv("ENVIRONMENT")) {
-            "DEVELOPMENT" -> DEVELOPMENT
-            else -> PRODUCTION
+            "DEVELOPMENT" -> DevelopmentDependencies()
+            else -> ProductionDependencies()
         }
-    
-    createAppFor(environment).asServer(SunHttp(port = 8080)).start()
+
+    createAppFrom(dependencies)
+        .asServer(SunHttp(port = 8080))
+        .start()
 }
