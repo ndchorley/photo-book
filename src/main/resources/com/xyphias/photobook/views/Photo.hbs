@@ -2,15 +2,21 @@
 <html lang="en">
     {{> com/xyphias/photobook/views/header title=title}}
     <body>
-        <h2>{{title}}</h2>
-        <img src="{{url}}" />
+        <div class="container">
+            <h2>{{title}}</h2>
 
-        <p id="taken-on">{{takenOn}}</p>
+            <div class="container">
+                <div class="row"><img src="{{url}}" /></div>
 
-        <div id="notes">
-            {{notes}}
+                <div class="row"><p id="taken-on">{{takenOn}}</p></div>
+
+                <div class="row">
+                    <div id="notes">
+                        {{notes}}
+                    </div>
+                </div>
+            </div>
+            {{> com/xyphias/photobook/views/footer}}
         </div>
-
-        {{> com/xyphias/photobook/views/footer}}
     </body>
 </html>
