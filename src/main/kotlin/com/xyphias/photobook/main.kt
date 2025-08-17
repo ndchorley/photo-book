@@ -1,6 +1,5 @@
 package com.xyphias.photobook
 
-import com.xyphias.photobook.Environment.*
 import org.http4k.server.SunHttp
 import org.http4k.server.asServer
 
