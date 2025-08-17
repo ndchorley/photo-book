@@ -47,8 +47,14 @@ class PhotoBookApp(
                     null -> Response(NOT_FOUND).body(renderTemplate(NotFound))
                     else -> Response(OK).body(renderTemplate(photo.toViewModel()))
                 }
-        }
+        },
+
+        "/list" bind GET to listHandler()
     )
+
+    private fun listHandler(): HttpHandler {
+        return { _: Request -> Response(OK) }
+    }
 }
 
 private fun photoFrom(request: Request): NewPhoto =
