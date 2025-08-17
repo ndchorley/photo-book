@@ -1,5 +1,9 @@
-package com.xyphias.photobook
+package com.xyphias.photobook.storage
 
+import com.xyphias.photobook.Id
+import com.xyphias.photobook.NewPhoto
+import com.xyphias.photobook.Photo
+import com.xyphias.photobook.Repository
 import kotlin.random.Random
 
 class MemoryBasedStore : Repository {
@@ -12,7 +16,7 @@ class MemoryBasedStore : Repository {
                 photo.takenOn
             )
 
-        val id = Id(Random.nextInt().toString())
+        val id = Id(Random.Default.nextInt().toString())
         photos.put(id, newPhoto)
 
         return id

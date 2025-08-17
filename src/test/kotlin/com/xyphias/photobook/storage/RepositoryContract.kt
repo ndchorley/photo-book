@@ -1,5 +1,9 @@
-package com.xyphias.photobook
+package com.xyphias.photobook.storage
 
+import com.xyphias.photobook.Id
+import com.xyphias.photobook.NewPhoto
+import com.xyphias.photobook.Photo
+import com.xyphias.photobook.Repository
 import org.junit.jupiter.api.Test
 import strikt.api.expect
 import strikt.api.expectThat

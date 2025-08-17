@@ -1,5 +1,6 @@
 package com.xyphias.photobook
 
+import com.xyphias.photobook.storage.MemoryBasedStore
 import org.http4k.template.HandlebarsTemplates
 import org.http4k.template.TemplateRenderer
 
