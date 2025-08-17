@@ -1,5 +1,6 @@
 package com.xyphias.photobook
 
+import org.flywaydb.core.Flyway
 import org.sqlite.SQLiteDataSource
 import java.time.LocalDateTime
 
@@ -43,6 +44,18 @@ class SQLiteBasedStore(jdbcUrl: String) : Repository {
                     results.getString("notes"),
                     LocalDateTime.parse(results.getString("takenOn"))
                 )
+        }
+    }
+
+    companion object {
+        fun createFor(jdbcUrl: String): SQLiteBasedStore {
+            Flyway
+                .configure()
+                .dataSource(jdbcUrl, "", "")
+                .load()
+                .migrate()
+
+            return SQLiteBasedStore(jdbcUrl)
         }
     }
 }
