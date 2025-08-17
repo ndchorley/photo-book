@@ -1,5 +1,6 @@
-package com.xyphias.photobook
+package com.xyphias.photobook.pageobjects
 
+import com.xyphias.photobook.NewPhoto
 import org.http4k.webdriver.Http4kWebDriver
 import org.openqa.selenium.By
 

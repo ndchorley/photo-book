@@ -1,4 +1,4 @@
-package com.xyphias.photobook
+package com.xyphias.photobook.pageobjects
 
 import org.http4k.webdriver.Http4kWebDriver
 import org.openqa.selenium.By

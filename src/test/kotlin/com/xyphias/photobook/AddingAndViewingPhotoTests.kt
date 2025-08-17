@@ -1,5 +1,6 @@
 package com.xyphias.photobook
 
+import com.xyphias.photobook.pageobjects.HomePage
 import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.webdriver.Http4kWebDriver
 import org.junit.jupiter.api.Test
