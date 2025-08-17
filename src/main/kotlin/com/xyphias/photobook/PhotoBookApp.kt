@@ -18,7 +18,8 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class PhotoBookApp(
-    private val renderTemplate: TemplateRenderer
+    private val renderTemplate: TemplateRenderer,
+    private val repository: Repository = MemoryBasedStore()
 ) : HttpHandler {
     override fun invoke(request: Request): Response = routes(request)
 
@@ -47,8 +48,6 @@ class PhotoBookApp(
                 }
         }
     )
-    
-    private val repository: Repository = MemoryBasedStore()
 }
 
 private fun photoFrom(request: Request): NewPhoto =
