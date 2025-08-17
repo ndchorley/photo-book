@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter
 
 class PhotoBookApp(
     private val renderTemplate: TemplateRenderer,
-    private val repository: Repository = MemoryBasedStore()
+    private val repository: Repository
 ) : HttpHandler {
     override fun invoke(request: Request): Response = routes(request)
 
