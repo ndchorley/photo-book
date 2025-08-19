@@ -34,7 +34,7 @@ class SQLiteBasedStore(jdbcUrl: String) : Repository {
         dataSource.connection.use {
             connection ->
                 val statement = connection.prepareStatement(
-                    "SELECT url, title, notes, takenOn FROM Photos WHERE rowid = ?;"
+                    "SELECT rowid, url, title, notes, takenOn FROM Photos WHERE rowid = ?;"
                 )
                 statement.setString(1, id.value)
                 val results = statement.executeQuery()
@@ -42,6 +42,7 @@ class SQLiteBasedStore(jdbcUrl: String) : Repository {
                 if (!results.next()) return null
 
                 return Photo(
+                    Id(results.getString("rowid")),
                     results.getString("url"),
                     results.getString("title"),
                     results.getString("notes"),
