@@ -18,14 +18,13 @@ class MemoryBasedStore : Repository {
                 photo.takenOn
             )
 
-        photos[id] = newPhoto
+        photos.add(newPhoto)
 
         return id
     }
 
-    override fun find(id: Id): Photo? {
-        return photos[id]
-    }
+    override fun find(id: Id): Photo? =
+        photos.find { photo -> photo.id == id }
 
-    private val photos = mutableMapOf<Id, Photo>()
+    private val photos = mutableListOf<Photo>()
 }
