@@ -2,7 +2,6 @@ package com.xyphias.photobook
 
 import com.xyphias.photobook.storage.Repository
 import com.xyphias.photobook.views.HomePage
-import com.xyphias.photobook.views.ListingPage
 import org.http4k.core.*
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
@@ -26,10 +25,6 @@ class PhotoBookApp(
         
         "/photo/{id}" bind GET to viewPhotoHandlerFrom(repository, renderTemplate),
 
-        "/list" bind GET to listHandler()
+        "/list" bind GET to listHandler(renderTemplate)
     )
-
-    private fun listHandler(): HttpHandler {
-        return { _: Request -> Response(OK).body(renderTemplate(ListingPage)) }
-    }
 }
