@@ -10,13 +10,10 @@ import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
 import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.core.Status.Companion.OK
-import org.http4k.core.body.form
-import org.http4k.lens.location
 import org.http4k.routing.bind
 import org.http4k.routing.path
 import org.http4k.routing.routes
 import org.http4k.template.TemplateRenderer
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class PhotoBookApp(
@@ -30,15 +27,7 @@ class PhotoBookApp(
             Response(OK).body(renderTemplate(HomePage)) 
         },
         
-        "/" bind POST to { 
-            request ->
-                val newPhoto = photoFrom(request)
-    
-                val id = repository.add(newPhoto)
-    
-                Response(Status.SEE_OTHER)
-                    .location(Uri.of("/photo/${id.value}"))
-        },
+        "/" bind POST to addPhotoHandlerFrom(repository),
         
         "/photo/{id}" bind GET to {
             request ->
@@ -57,16 +46,6 @@ class PhotoBookApp(
         return { _: Request -> Response(OK).body(renderTemplate(ListingPage)) }
     }
 }
-
-private fun photoFrom(request: Request): NewPhoto =
-    NewPhoto(
-        url = request.form("url")!!,
-        title = request.form("title")!!,
-        notes = request.form("notes")!!,
-        takenOn =
-            LocalDateTime
-                .parse(request.form("taken-on")!!)
-    )
 
 private fun Photo.toViewModel(): PhotoView {
     val dateTime =
