@@ -2,6 +2,7 @@ package com.xyphias.photobook
 
 import com.xyphias.photobook.storage.Repository
 import com.xyphias.photobook.views.HomePage
+import com.xyphias.photobook.views.ListingPage
 import com.xyphias.photobook.views.NotFound
 import com.xyphias.photobook.views.Photo as PhotoView
 import org.http4k.core.*
@@ -53,7 +54,7 @@ class PhotoBookApp(
     )
 
     private fun listHandler(): HttpHandler {
-        return { _: Request -> Response(OK) }
+        return { _: Request -> Response(OK).body(renderTemplate(ListingPage)) }
     }
 }
 
