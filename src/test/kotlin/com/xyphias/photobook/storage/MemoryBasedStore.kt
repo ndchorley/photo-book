@@ -26,5 +26,7 @@ class MemoryBasedStore : Repository {
     override fun find(id: Id): Photo? =
         photos.find { photo -> photo.id == id }
 
+    override fun all(): List<Photo> = photos.toList()
+
     private val photos = mutableListOf<Photo>()
 }

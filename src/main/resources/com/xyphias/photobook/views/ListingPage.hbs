@@ -3,7 +3,9 @@
     {{> com/xyphias/photobook/views/header title="Your photos"}}
     <body>
     <div class="container">
+        {{#unless photos}}
         <h2>You have not added any photos</h2>
+        {{/unless}}
         
         {{> com/xyphias/photobook/views/footer}}
     </div>

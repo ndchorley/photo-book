@@ -51,6 +51,10 @@ class SQLiteBasedStore(jdbcUrl: String) : Repository {
         }
     }
 
+    override fun all(): List<Photo> {
+        return emptyList()
+    }
+
     companion object {
         fun createFor(jdbcUrl: String): SQLiteBasedStore {
             Flyway

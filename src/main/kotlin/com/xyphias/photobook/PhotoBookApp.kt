@@ -25,6 +25,6 @@ class PhotoBookApp(
         
         "/photo/{id}" bind GET to viewPhotoHandlerFrom(repository, renderTemplate),
 
-        "/list" bind GET to listHandler(renderTemplate)
+        "/list" bind GET to listHandler(repository, renderTemplate)
     )
 }
