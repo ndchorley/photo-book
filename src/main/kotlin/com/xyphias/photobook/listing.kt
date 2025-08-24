@@ -12,11 +12,12 @@ import java.time.format.DateTimeFormatter
 
 fun listHandler(repository: Repository, renderTemplate: TemplateRenderer): HttpHandler =
     { _: Request ->
-        val photos =
-            repository.all().toViewModels()
+        val photos = repository.all()
+
+        val views = photos.toViewModels()
 
         Response(Status.OK)
-            .body(renderTemplate(ListingPage(photos)))
+            .body(renderTemplate(ListingPage(views)))
     }
 
 private fun List<Photo>.toViewModels(): List<ListingPhoto> {
