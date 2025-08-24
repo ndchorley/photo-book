@@ -27,9 +27,7 @@ class ListingPhotosTests {
         val title = "Sunrise in London"
         aPhoto
             .withTitle(title)
-            .andTakenOn(
-                LocalDateTime.of(2025, Month.AUGUST, 14, 5, 49)
-            )
+            .andTakenOn(fourteenthAugustAt549)
             .wasAdded()
 
         browser
@@ -51,6 +49,10 @@ class ListingPhotosTests {
             "It was good",
             LocalDateTime.MIN
         )
+
+    private val fourteenthAugustAt549: LocalDateTime =
+        LocalDateTime.of(2025, Month.AUGUST, 14, 5, 49)
+
 }
 
 private fun NewPhoto.andTakenOn(takenOn: LocalDateTime): NewPhoto =
