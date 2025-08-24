@@ -9,7 +9,7 @@ import strikt.assertions.isEqualTo
 import java.time.LocalDateTime
 import java.time.Month.JULY
 
-class PhotoBookTests {
+class AddingAndViewingPhotoTests {
     private val app = createAppFrom(TestDependencies())
     private val browser = Http4kWebDriver(app)
     
