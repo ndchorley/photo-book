@@ -22,9 +22,7 @@ class PhotoBookTests {
                 notes = """|The trees were in the way and it was quite a dark shot.
                            | Couldn't get a good angle.
                            |""".trimMargin(),
-                takenOn =
-                    LocalDateTime
-                        .of(2025, JULY, 15, 12, 35)
+                takenOn = fifteenthJulyAt1235
             )
 
         browser
@@ -43,6 +41,11 @@ class PhotoBookTests {
             .navigateToPhotoPageFor(id = "does-not-exist")
             .seesPhotoNotFoundPage()
     }
+
+    private val fifteenthJulyAt1235: LocalDateTime =
+        LocalDateTime
+            .of(2025, JULY, 15, 12, 35)
+
 }
 
 private fun Http4kWebDriver.navigateToHomePage(): HomePage {
