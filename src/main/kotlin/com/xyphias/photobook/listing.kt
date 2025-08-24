@@ -2,6 +2,7 @@ package com.xyphias.photobook
 
 import com.xyphias.photobook.storage.Repository
 import com.xyphias.photobook.views.ListingPage
+import com.xyphias.photobook.views.ListingPhoto
 import org.http4k.core.HttpHandler
 import org.http4k.core.Request
 import org.http4k.core.Response
@@ -18,15 +19,14 @@ fun listHandler(repository: Repository, renderTemplate: TemplateRenderer): HttpH
             .body(renderTemplate(ListingPage(photos)))
     }
 
-private fun List<Photo>.toViewModels(): List<com.xyphias.photobook.views.Photo> {
+private fun List<Photo>.toViewModels(): List<ListingPhoto> {
     val dateTimeFormatter =
         DateTimeFormatter.ofPattern("d-MM-YYYY HH:mm")
 
     return map { photo ->
-        com.xyphias.photobook.views.Photo(
-            photo.url,
+        ListingPhoto(
+            photo.id.value,
             photo.title,
-            photo.notes,
             dateTimeFormatter.format(photo.takenOn)
         )
     }
