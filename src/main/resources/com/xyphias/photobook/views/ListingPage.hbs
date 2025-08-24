@@ -6,7 +6,20 @@
         {{#unless photos}}
         <h2>You have not added any photos</h2>
         {{/unless}}
-        
+
+        {{#if photos}}
+            <div class="container">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>{{photos.0.takenOn}}</td>
+                            <td>{{photos.0.title}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {{/if}}
+
         {{> com/xyphias/photobook/views/footer}}
     </div>
     </body>

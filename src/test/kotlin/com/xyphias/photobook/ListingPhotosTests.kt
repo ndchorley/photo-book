@@ -7,9 +7,10 @@ import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import java.time.LocalDateTime
+import java.time.Month
 
 
-class ListingPhotoTests {
+class ListingPhotosTests {
     private val dependencies = TestDependencies()
     private val app = createAppFrom(dependencies)
     private val browser = Http4kWebDriver(app)
@@ -23,11 +24,20 @@ class ListingPhotoTests {
 
     @Test
     fun `a row is shown for a photo`() {
-        aPhoto.wasAdded()
+        val title = "Sunrise in London"
+        aPhoto
+            .withTitle(title)
+            .andTakenOn(
+                LocalDateTime.of(2025, Month.AUGUST, 14, 5, 49)
+            )
+            .wasAdded()
 
         browser
             .navigateToListingPage()
             .cannotSeeTheNoPhotosMessage()
+            .butCanSeeARow()
+            .withDateAndTimeTaken("14-08-2025 05:49")
+            .withTitle(title)
     }
 
     private fun NewPhoto.wasAdded() {
@@ -42,6 +52,12 @@ class ListingPhotoTests {
             LocalDateTime.MIN
         )
 }
+
+private fun NewPhoto.andTakenOn(takenOn: LocalDateTime): NewPhoto =
+    copy(takenOn = takenOn)
+
+private fun NewPhoto.withTitle(title: String): NewPhoto =
+    copy(title = title)
 
 private fun Http4kWebDriver.navigateToListingPage(): ListingPage {
     navigate().to("/list")
