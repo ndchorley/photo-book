@@ -1,4 +1,4 @@
-package com.xyphias.photobook
+package com.xyphias.photobook.adding
 
 import com.xyphias.photobook.storage.Repository
 import org.http4k.core.Request

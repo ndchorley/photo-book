@@ -1,7 +1,8 @@
 package com.xyphias.photobook
 
+import com.xyphias.photobook.adding.addPhotoHandlerFrom
 import com.xyphias.photobook.storage.Repository
-import com.xyphias.photobook.views.HomePage
+import com.xyphias.photobook.adding.HomePage
 import org.http4k.core.*
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST

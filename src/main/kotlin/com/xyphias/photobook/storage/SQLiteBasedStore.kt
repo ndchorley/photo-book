@@ -1,7 +1,7 @@
 package com.xyphias.photobook.storage
 
 import com.xyphias.photobook.Id
-import com.xyphias.photobook.NewPhoto
+import com.xyphias.photobook.adding.NewPhoto
 import com.xyphias.photobook.Photo
 import org.flywaydb.core.Flyway
 import org.sqlite.SQLiteDataSource

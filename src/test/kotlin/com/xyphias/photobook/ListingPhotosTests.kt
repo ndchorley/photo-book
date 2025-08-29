@@ -1,5 +1,6 @@
 package com.xyphias.photobook
 
+import com.xyphias.photobook.adding.NewPhoto
 import com.xyphias.photobook.pageobjects.ListingPage
 import org.http4k.core.Status.Companion.OK
 import org.http4k.webdriver.Http4kWebDriver
