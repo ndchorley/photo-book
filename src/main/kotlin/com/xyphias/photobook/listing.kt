@@ -20,15 +20,14 @@ fun listHandler(repository: Repository, renderTemplate: TemplateRenderer): HttpH
             .body(renderTemplate(ListingPage(views)))
     }
 
-private fun List<Photo>.toViewModels(): List<ListingPhoto> {
-    val dateTimeFormatter =
-        DateTimeFormatter.ofPattern("d-MM-YYYY HH:mm")
-
-    return map { photo ->
+private fun List<Photo>.toViewModels(): List<ListingPhoto> =
+    map { photo ->
         ListingPhoto(
             photo.id.value,
             photo.title,
             dateTimeFormatter.format(photo.takenOn)
         )
     }
-}
+
+private val dateTimeFormatter: DateTimeFormatter =
+    DateTimeFormatter.ofPattern("d-MM-YYYY HH:mm")
