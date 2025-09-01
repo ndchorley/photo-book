@@ -2,6 +2,7 @@ package com.xyphias.photobook
 
 import com.xyphias.photobook.adding.addPhotoHandlerFrom
 import com.xyphias.photobook.storage.Repository
+import com.xyphias.photobook.viewing.viewPhotoHandlerFrom
 import com.xyphias.photobook.views.HomePage
 import org.http4k.core.*
 import org.http4k.core.Method.GET

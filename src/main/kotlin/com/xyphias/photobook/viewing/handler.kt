@@ -1,5 +1,7 @@
-package com.xyphias.photobook
+package com.xyphias.photobook.viewing
 
+import com.xyphias.photobook.Id
+import com.xyphias.photobook.Photo
 import com.xyphias.photobook.storage.Repository
 import com.xyphias.photobook.views.NotFound
 import org.http4k.core.Request
