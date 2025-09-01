@@ -19,15 +19,16 @@ class PhotoBookApp(
 ) : HttpHandler {
     override fun invoke(request: Request): Response = routes(request)
 
-    private val routes = routes(
-        "/" bind GET to { _ -> 
-            Response(OK).body(renderTemplate(HomePage)) 
-        },
-        
-        "/" bind POST to addPhotoHandlerFrom(repository),
-        
-        "/photo/{id}" bind GET to viewPhotoHandlerFrom(repository, renderTemplate),
+    private val routes =
+        routes(
+            "/" bind GET to { _ ->
+                Response(OK).body(renderTemplate(HomePage))
+            },
 
-        "/list" bind GET to listHandler(repository, renderTemplate)
-    )
+            "/" bind POST to addPhotoHandlerFrom(repository),
+
+            "/photo/{id}" bind GET to viewPhotoHandlerFrom(repository, renderTemplate),
+
+            "/list" bind GET to listHandler(repository, renderTemplate)
+        )
 }
