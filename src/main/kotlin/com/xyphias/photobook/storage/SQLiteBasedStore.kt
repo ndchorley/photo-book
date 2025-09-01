@@ -3,6 +3,7 @@ package com.xyphias.photobook.storage
 import com.xyphias.photobook.Id
 import com.xyphias.photobook.adding.NewPhoto
 import com.xyphias.photobook.Photo
+import com.xyphias.photobook.listing.SummarisedPhoto
 import org.flywaydb.core.Flyway
 import org.sqlite.SQLiteDataSource
 import java.time.LocalDateTime
@@ -51,7 +52,7 @@ class SQLiteBasedStore(jdbcUrl: String) : Repository {
         }
     }
 
-    override fun all(): List<Photo> {
+    override fun all(): List<SummarisedPhoto> {
         return emptyList()
     }
 

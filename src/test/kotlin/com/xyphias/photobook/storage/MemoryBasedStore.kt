@@ -3,6 +3,7 @@ package com.xyphias.photobook.storage
 import com.xyphias.photobook.Id
 import com.xyphias.photobook.adding.NewPhoto
 import com.xyphias.photobook.Photo
+import com.xyphias.photobook.listing.SummarisedPhoto
 import kotlin.random.Random
 
 class MemoryBasedStore : Repository {
@@ -26,7 +27,10 @@ class MemoryBasedStore : Repository {
     override fun find(id: Id): Photo? =
         photos.find { photo -> photo.id == id }
 
-    override fun all(): List<Photo> = photos.toList()
+    override fun all(): List<SummarisedPhoto> =
+        photos.map { 
+            photo -> SummarisedPhoto(photo.id, photo.title, photo.takenOn)
+        }
 
     private val photos = mutableListOf<Photo>()
 }

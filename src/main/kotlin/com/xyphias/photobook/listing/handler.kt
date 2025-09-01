@@ -1,6 +1,5 @@
 package com.xyphias.photobook.listing
 
-import com.xyphias.photobook.Photo
 import com.xyphias.photobook.storage.Repository
 import com.xyphias.photobook.views.ListingPage
 import com.xyphias.photobook.views.ListingPhoto
@@ -21,7 +20,7 @@ fun listHandler(repository: Repository, renderTemplate: TemplateRenderer): HttpH
             .body(renderTemplate(ListingPage(views)))
     }
 
-private fun List<Photo>.toViewModels(): List<ListingPhoto> =
+private fun List<SummarisedPhoto>.toViewModels(): List<ListingPhoto> =
     map { photo ->
         ListingPhoto(
             photo.id.value,
