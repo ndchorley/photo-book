@@ -22,9 +22,10 @@ fun viewPhotoHandlerFrom(repository: Repository, renderTemplate: TemplateRendere
     }
 
 private fun Photo.toViewModel(): com.xyphias.photobook.views.Photo {
-    val dateTime =
-        DateTimeFormatter.ofPattern("d MMMM YYYY 'at' HH:mm")
-            .format(takenOn)
+    val dateTime = dateTimeFormatter.format(takenOn)
 
     return com.xyphias.photobook.views.Photo(url, title, notes, dateTime)
 }
+
+private val dateTimeFormatter =
+    DateTimeFormatter.ofPattern("d MMMM YYYY 'at' HH:mm")
