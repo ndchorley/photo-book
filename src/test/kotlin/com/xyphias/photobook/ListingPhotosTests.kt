@@ -26,10 +26,11 @@ class ListingPhotosTests {
     @Test
     fun `a row is shown for a photo`() {
         val title = "Sunrise in London"
-        aPhoto
-            .withTitle(title)
-            .andTakenOn(fourteenthAugustAt549)
-            .wasAdded()
+        val id =
+            aPhoto
+                .withTitle(title)
+                .andTakenOn(fourteenthAugustAt549)
+                .wasAdded()
 
         browser
             .navigateToListingPage()
@@ -37,11 +38,10 @@ class ListingPhotosTests {
             .butCanSeeARow()
             .withDateAndTimeTaken("14-08-2025 05:49")
             .withTitle(title)
+            .andALinkToViewIt(id)
     }
 
-    private fun NewPhoto.wasAdded() {
-        dependencies.repository.add(this)
-    }
+    private fun NewPhoto.wasAdded(): Id = dependencies.repository.add(this)
 
     private val aPhoto =
         NewPhoto(
@@ -66,6 +66,6 @@ private fun Http4kWebDriver.navigateToListingPage(): ListingPage {
     navigate().to("/list")
 
     expectThat(this.status!!).isEqualTo(OK)
-    
+
     return ListingPage(this)
 }

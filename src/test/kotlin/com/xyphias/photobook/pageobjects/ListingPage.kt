@@ -1,8 +1,10 @@
 package com.xyphias.photobook.pageobjects
 
+import com.xyphias.photobook.Id
 import org.http4k.webdriver.Http4kWebDriver
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
+import strikt.api.expect
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isNotNull
@@ -40,14 +42,30 @@ class ListingPage(private val browser: Http4kWebDriver) {
 }
 
 class Row(rowElement: WebElement) {
-    val tdElements = rowElement.findElements(By.tagName("td"))
+    private val tdElements = rowElement.findElements(By.tagName("td"))
 
-    fun withTitle(title: String) {
+    fun withTitle(title: String): Row {
         expectThat(tdElements[1].text).isEqualTo(title)
+        
+        return this
     }
 
     fun withDateAndTimeTaken(takenOn: String): Row {
         expectThat(tdElements[0].text).isEqualTo(takenOn)
+        
         return this
     }
+
+    fun andALinkToViewIt(id: Id) {
+        val linkElement = tdElements[2].findElement(By.tagName("a"))
+        
+        expect { 
+            that(linkElement.getAttribute("href"))
+                .isNotNull()
+                .and { isEqualTo("/photo/${id.value}") }
+            
+            that(linkElement.text).isEqualTo("View")
+        }
+    }
 }
+
