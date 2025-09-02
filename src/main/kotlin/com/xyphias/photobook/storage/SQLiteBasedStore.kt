@@ -53,7 +53,28 @@ class SQLiteBasedStore(jdbcUrl: String) : Repository {
     }
 
     override fun all(): List<SummarisedPhoto> {
-        return emptyList()
+        dataSource.connection.use {
+            connection ->
+
+            val results = 
+                connection
+                    .prepareStatement("SELECT rowid, title, takenOn FROM Photos")
+                    .executeQuery()
+            
+                val photos = mutableListOf<SummarisedPhoto>()
+            
+                while (results.next()) {
+                    photos.add(
+                        SummarisedPhoto(
+                            Id(results.getString("rowid")),
+                            results.getString("title"),
+                            LocalDateTime.parse(results.getString("takenOn"))
+                        )
+                    )
+                }
+                
+                return photos.toList()
+        }
     }
 
     companion object {

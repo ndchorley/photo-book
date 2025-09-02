@@ -3,9 +3,11 @@ package com.xyphias.photobook.storage
 import com.xyphias.photobook.Id
 import com.xyphias.photobook.adding.NewPhoto
 import com.xyphias.photobook.Photo
+import com.xyphias.photobook.listing.SummarisedPhoto
 import org.junit.jupiter.api.Test
 import strikt.api.expect
 import strikt.api.expectThat
+import strikt.assertions.containsExactlyInAnyOrder
 import strikt.assertions.isEqualTo
 import strikt.assertions.isNotNull
 import strikt.assertions.isNull
@@ -37,6 +39,20 @@ abstract class RepositoryContract {
         expectThat(photo).isNull()
     }
 
+    @Test
+    fun `the list of photos is a summary for each one`() {
+        val id1 = repository.add(aPhoto)
+        val id2 = repository.add(anotherPhoto)
+
+        val listOfPhotos = repository.all()
+
+        expectThat(listOfPhotos)
+            .containsExactlyInAnyOrder(
+                SummarisedPhoto(id1, aPhoto.title, aPhoto.takenOn),
+                SummarisedPhoto(id2, anotherPhoto.title, anotherPhoto.takenOn)
+            )
+    }
+
     private val aPhoto =
         NewPhoto(
             url = "https://example.com/bus.jpg",
@@ -44,7 +60,6 @@ abstract class RepositoryContract {
             notes = "Angle was OK, but shot has distraction from buildings",
             takenOn = LocalDateTime.MIN
         )
-
 
     private val anotherPhoto =
         NewPhoto(
