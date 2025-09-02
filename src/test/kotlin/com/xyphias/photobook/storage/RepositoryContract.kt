@@ -16,25 +16,17 @@ abstract class RepositoryContract {
 
     @Test
     fun `photos can be added and retrieved by ID`() {
-        val photo =
-            NewPhoto(
-                url = "https://example.com/bus.jpg",
-                title = "London bus",
-                notes = "Angle was OK, but shot has distraction from buildings",
-                takenOn = LocalDateTime.MIN
-            )
-
-        val id = repository.add(photo)
+        val id = repository.add(aPhoto)
         repository.add(anotherPhoto)
 
         val retrievedPhoto: Photo? = repository.find(id)
 
         expect {
             that(retrievedPhoto).isNotNull()
-            that(retrievedPhoto?.url).isEqualTo(photo.url)
-            that(retrievedPhoto?.title).isEqualTo(photo.title)
-            that(retrievedPhoto?.notes).isEqualTo(photo.notes)
-            that(retrievedPhoto?.takenOn).isEqualTo(photo.takenOn)
+            that(retrievedPhoto?.url).isEqualTo(aPhoto.url)
+            that(retrievedPhoto?.title).isEqualTo(aPhoto.title)
+            that(retrievedPhoto?.notes).isEqualTo(aPhoto.notes)
+            that(retrievedPhoto?.takenOn).isEqualTo(aPhoto.takenOn)
         }
     }
 
@@ -44,6 +36,15 @@ abstract class RepositoryContract {
 
         expectThat(photo).isNull()
     }
+
+    private val aPhoto =
+        NewPhoto(
+            url = "https://example.com/bus.jpg",
+            title = "London bus",
+            notes = "Angle was OK, but shot has distraction from buildings",
+            takenOn = LocalDateTime.MIN
+        )
+
 
     private val anotherPhoto =
         NewPhoto(
