@@ -3,7 +3,7 @@ package com.xyphias.photobook.storage
 import com.xyphias.photobook.Id
 import com.xyphias.photobook.adding.NewPhoto
 import com.xyphias.photobook.Photo
-import com.xyphias.photobook.listing.SummarisedPhoto
+import com.xyphias.photobook.listing.PhotoSummary
 import org.junit.jupiter.api.Test
 import strikt.api.expect
 import strikt.api.expectThat
@@ -48,8 +48,8 @@ abstract class RepositoryContract {
 
         expectThat(listOfPhotos)
             .containsExactlyInAnyOrder(
-                SummarisedPhoto(id1, aPhoto.title, aPhoto.takenOn),
-                SummarisedPhoto(id2, anotherPhoto.title, anotherPhoto.takenOn)
+                PhotoSummary(id1, aPhoto.title, aPhoto.takenOn),
+                PhotoSummary(id2, anotherPhoto.title, anotherPhoto.takenOn)
             )
     }
 

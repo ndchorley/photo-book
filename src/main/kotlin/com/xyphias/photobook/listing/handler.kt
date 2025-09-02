@@ -20,7 +20,7 @@ fun listHandler(repository: Repository, renderTemplate: TemplateRenderer): HttpH
             .body(renderTemplate(ListingPage(views)))
     }
 
-private fun List<SummarisedPhoto>.toViewModels(): List<ListingPhoto> =
+private fun List<PhotoSummary>.toViewModels(): List<ListingPhoto> =
     map { photo ->
         ListingPhoto(
             photo.id.value,

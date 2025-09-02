@@ -3,7 +3,7 @@ package com.xyphias.photobook.storage
 import com.xyphias.photobook.Id
 import com.xyphias.photobook.adding.NewPhoto
 import com.xyphias.photobook.Photo
-import com.xyphias.photobook.listing.SummarisedPhoto
+import com.xyphias.photobook.listing.PhotoSummary
 import org.flywaydb.core.Flyway
 import org.sqlite.SQLiteDataSource
 import java.time.LocalDateTime
@@ -52,7 +52,7 @@ class SQLiteBasedStore(jdbcUrl: String) : Repository {
         }
     }
 
-    override fun all(): List<SummarisedPhoto> {
+    override fun all(): List<PhotoSummary> {
         dataSource.connection.use {
             connection ->
 
@@ -61,11 +61,11 @@ class SQLiteBasedStore(jdbcUrl: String) : Repository {
                     .prepareStatement("SELECT rowid, title, takenOn FROM Photos")
                     .executeQuery()
             
-                val photos = mutableListOf<SummarisedPhoto>()
+                val photos = mutableListOf<PhotoSummary>()
             
                 while (results.next()) {
                     photos.add(
-                        SummarisedPhoto(
+                        PhotoSummary(
                             Id(results.getString("rowid")),
                             results.getString("title"),
                             LocalDateTime.parse(results.getString("takenOn"))
