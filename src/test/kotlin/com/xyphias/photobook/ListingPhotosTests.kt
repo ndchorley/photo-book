@@ -35,7 +35,7 @@ class ListingPhotosTests {
         browser
             .navigateToListingPage()
             .cannotSeeTheNoPhotosMessage()
-            .butCanSeeARow()
+            .butCanSeeARowForAPhoto()
             .withDateAndTimeTaken("14-08-2025 05:49")
             .withTitle(title)
             .andALinkToViewIt(id)

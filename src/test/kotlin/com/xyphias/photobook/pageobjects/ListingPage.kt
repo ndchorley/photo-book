@@ -28,7 +28,7 @@ class ListingPage(private val browser: Http4kWebDriver) {
         return this
     }
 
-    fun butCanSeeARow(): Row {
+    fun butCanSeeARowForAPhoto(): Row {
         val rowElement =
             browser
                 .findElement(By.tagName("table"))
