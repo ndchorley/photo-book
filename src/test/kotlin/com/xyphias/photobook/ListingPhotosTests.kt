@@ -37,7 +37,7 @@ class ListingPhotosTests {
             .cannotSeeTheNoPhotosMessage()
             .butCanSeeARowForAPhoto()
             .withDateAndTimeTaken("14-08-2025 05:49")
-            .withTitle(title)
+            .andTitle(title)
             .andALinkToViewIt(id)
     }
 

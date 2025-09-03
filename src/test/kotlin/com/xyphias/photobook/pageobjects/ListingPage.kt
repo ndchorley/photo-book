@@ -44,7 +44,7 @@ class ListingPage(private val browser: Http4kWebDriver) {
 class Row(rowElement: WebElement) {
     private val tdElements = rowElement.findElements(By.tagName("td"))
 
-    fun withTitle(title: String): Row {
+    fun andTitle(title: String): Row {
         expectThat(tdElements[1].text).isEqualTo(title)
         
         return this
