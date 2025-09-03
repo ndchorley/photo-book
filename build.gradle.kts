@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm") version "2.2.10"
     id("application")
     id("com.adarshr.test-logger").version("4.0.0")
-    id("com.gradleup.shadow").version("9.0.2")
+    id("com.gradleup.shadow").version("9.1.0")
 }
 
 group = "com.xyphias"
